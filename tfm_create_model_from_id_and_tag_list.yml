@@ -1,0 +1,93 @@
+---
+- hosts:
+    - server1
+  tasks:
+    - name: Installing rsync
+      ansible.builtin.apt:
+        pkg:
+          - rsync
+        update_cache: true
+      tags:
+        - initialization
+        - dependecies_install
+
+    - name: Install Python pip
+      apt: name={{ item }} update_cache=true state=present force_apt_get=yes
+      with_items:
+        - python3-pip
+      become: true
+      tags:
+        - initialization
+        - dependecies_install
+
+    - name: Install pip
+      ansible.builtin.pip:
+        name: bottle
+        state: forcereinstall
+      tags:
+        - initialization
+        - dependecies_install
+        - pip
+
+    - name: Installing spacy
+      ansible.builtin.pip:
+        name: spacy
+        executable: pip
+      tags:
+        - initialization
+        - dependecies_install
+        - pip
+
+    - name: Installing pyyaml
+      ansible.builtin.pip:
+        name: pyyaml
+        executable: pip
+      tags:
+        - initialization
+        - dependecies_install
+        - pip
+
+    - name: Installing pandas
+      ansible.builtin.pip:
+        name: pandas
+        executable: pip
+      tags:
+        - initialization
+        - dependecies_install
+        - pip
+
+    - name: Load data configuration for data_path_source in the anm pc and data_path_destination for the server 
+      ansible.builtin.include_vars: config_data.yml
+      tags:
+        - initialization
+        - load_playbook_conf_data
+
+    - name: Load config vars to check if download EN template
+      ansible.builtin.include_vars: "{{ data_path_source }}/config.yaml"
+      tags:
+        - initialization
+        - load_python_project_conf_data
+
+    - name: downloading EN template for model
+      ansible.builtin.shell:
+        cmd: python3 -m spacy download en_core_web_sm
+        chdir: /home
+      when: lang == "EN"
+      tags:
+        - initialization
+        - dependecies_install
+
+    - name: Copy data and python code to pc
+      ansible.posix.synchronize:
+        src: "{{ data_path_source }}"
+        dest: "{{ data_path_destination }}"
+        mode: push
+      tags:
+        - copying_data_to_server
+
+    - name: execute test script
+      ansible.builtin.shell:
+        cmd: python3 ./process_by_id_and_tag_list_with_padchest_data.py
+        chdir: "{{ data_path_destination }}"
+      tags:
+        - running_project
