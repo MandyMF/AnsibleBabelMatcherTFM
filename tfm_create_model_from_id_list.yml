@@ -38,6 +38,15 @@
         - dependecies_install
         - pip
 
+    - name: Installing stop-words
+      ansible.builtin.pip:
+        name: stop-words
+        executable: pip
+      tags:
+        - initialization
+        - dependecies_install
+        - pip
+
     - name: Installing pyyaml
       ansible.builtin.pip:
         name: pyyaml
