@@ -38,7 +38,7 @@
         - dependecies_install
         - pip
 
-     - name: Installing stop-words
+    - name: Installing stop-words
       ansible.builtin.pip:
         name: stop-words
         executable: pip
@@ -100,3 +100,11 @@
         chdir: "{{ data_path_destination }}"
       tags:
         - running_project
+    
+    - name: fetch results
+      ansible.builtin.fetch:
+        src: "{{ data_path_destination }}/{{ result_file_path }}"
+        dest: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/{{ result_file_name_on_local }}"
+        flat: yes
+      tags:
+        - fetch_results

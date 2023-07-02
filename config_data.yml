@@ -1,2 +1,4 @@
 data_path_source: "tfm_code/"
 data_path_destination: "/home/user/tfm_code/"
+result_from_model_destination_local: "./result"
+result_file_name_on_local: "result.json"

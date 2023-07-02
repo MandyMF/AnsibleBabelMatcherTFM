@@ -4,14 +4,10 @@ This project uses the babelnet project (link) to deploy the example or test prog
 
 ## Configuration
 
-This project uses the **config_data.yml** to be able to get the code source to deploy and the destination location to do so.
-You need to generate the rsa id and name it **id_rsa** to be able to use the project or can also be edited to your id_rsa file name.
-This is also the case with the ansible_host ip, ansible_user and all configuration related to ansible as such.
+This project uses the **config_data.yml** to be able to get the code source to deploy and the destination location to do so. You need to generate the rsa id and name it **id_rsa** to be able to use the project or can also be edited to your id_rsa file name.
+This is also the case with the ansible_host ip, ansible_user and all configuration related to Ansible as such.
 
-There are 5 ansible playbooks that are use to examplify the use and possibilities of the BabelMatcher library. The ansible functionality was implemented
-because there is a real risk of running out of babelkeys tokens while running the program, and this keys are renewed every 24 hours, so, if you now you now
-you are going to spend all your tokens without finishing the task at hand, deploying the task into a remote machine can be the more realisting and functional way
-to do it.
+There are 5 Ansible playbooks that are used to exemplify the use and possibilities of the BabelMatcher library. The ansible functionality was implemented because there is a real risk of running out of babelkeys tokens while running the program, and this key is renewed every 24 hours, so, if you know you are going to spend all your tokens without finishing the task at hand, deploying the task into a remote machine can be the more realistic and functional way to do it.
 
 * ##### tfm_create_model_from_all_lemmas_found
 
@@ -32,3 +28,21 @@ Process the text with a list of ids and the first lemma found by the id is the t
 * ##### tfm_execute_model_from_saved_model
 
 Process the text using a previously saved model.
+
+### Parameters in config.yml
+Next the meaning or function of every paramater in config.yml.
+
+* ##### data_path_source
+
+This is the path to the code with the data folder where the logic of the project is stored.
+
+* ##### data_path_destination
+
+This is the path folder to where the code will be stored to next be executed on the remote server.
+
+* ##### result_from_model_destination_local
+
+This is the folder where the result from the model execution will be stored.
+* ##### result_file_name_on_local
+
+This is the name which the result file will have. This file will be contained in the **result_from_model_destination_local** folder inside the folder that is equal to the server name where the data was fetched from.
