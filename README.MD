@@ -46,3 +46,7 @@ This is the folder where the result from the model execution will be stored.
 * ##### result_file_name_on_local
 
 This is the name which the result file will have. This file will be contained in the **result_from_model_destination_local** folder inside the folder that is equal to the server name where the data was fetched from.
+
+* ##### result_html_name_on_local
+
+This is the name of the result file prepared to be shown as an html. This file will be contained in the **result_from_model_destination_local** folder inside the folder that is equal to the server name where the data was fetched from.

@@ -11,6 +11,16 @@
         - initialization
         - dependecies_install
 
+    - name: Installing apache2
+      ansible.builtin.apt:
+        pkg:
+          - apache2
+        update_cache: true
+      tags:
+        - initialization
+        - dependecies_install
+        - apache
+
     - name: Install Python pip
       apt: name={{ item }} update_cache=true state=present force_apt_get=yes
       with_items:
@@ -50,6 +60,15 @@
     - name: Installing pyyaml
       ansible.builtin.pip:
         name: pyyaml
+        executable: pip
+      tags:
+        - initialization
+        - dependecies_install
+        - pip
+
+    - name: Installing bs4
+      ansible.builtin.pip:
+        name: bs4
         executable: pip
       tags:
         - initialization
@@ -104,7 +123,23 @@
     - name: fetch results
       ansible.builtin.fetch:
         src: "{{ data_path_destination }}/{{ result_file_path }}"
-        dest: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/{{ result_file_name_on_local }}"
+        dest: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/all_lemmas_found/{{ result_file_name_on_local }}"
         flat: yes
       tags:
         - fetch_results
+    
+    - name: fetch results html
+      ansible.builtin.fetch:
+        src: "{{ data_path_destination }}/{{ save_html_view }}"
+        dest: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/all_lemmas_found/{{ result_html_name_on_local }}"
+        flat: yes
+      tags:
+        - fetch_results
+
+    - name: mount html results in apache
+      ansible.posix.synchronize:
+        src: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/all_lemmas_found/{{ result_html_name_on_local }}"
+        dest: "/var/www/html/index.html"
+        mode: push
+      tags:
+        - publish_data_with_apache
