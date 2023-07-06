@@ -4,6 +4,13 @@ This project uses the babelnet project (link) to deploy the example or test prog
 
 ## Configuration
 
+Is important to do:
+
+**$ ansible-galaxy install -r requirements.yml**
+
+to install dependencies.
+
+
 This project uses the **config_data.yml** to be able to get the code source to deploy and the destination location to do so. You need to generate the rsa id and name it **id_rsa** to be able to use the project or can also be edited to your id_rsa file name.
 This is also the case with the ansible_host ip, ansible_user and all configuration related to Ansible as such.
 

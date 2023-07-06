@@ -47,6 +47,15 @@
         - initialization
         - dependecies_install
         - pip
+  
+    - name: Installing unidecode
+      ansible.builtin.pip:
+        name: unidecode
+        executable: pip
+      tags:
+        - initialization
+        - dependecies_install
+        - pip
 
     - name: Installing stop-words
       ansible.builtin.pip:
@@ -91,7 +100,7 @@
         - load_playbook_conf_data
 
     - name: Load config vars to check if download EN template
-      ansible.builtin.include_vars: "{{ data_path_source }}/config.yaml"
+      ansible.builtin.include_vars: "{{ config_path_source }}"
       tags:
         - initialization
         - load_python_project_conf_data
@@ -105,10 +114,55 @@
         - initialization
         - dependecies_install
 
-    - name: Copy data and python code to pc
+    - name: Read-write git checkout from github
+      ansible.builtin.git:
+        repo: 'https://github.com/MandyMF/BabelMatcherTFM.git'
+        dest: "{{ data_path_destination }}"
+        clone: yes
+        update: yes
+      tags:
+        - copying_data_to_server
+
+    - name: Copy python code to pc
+      ansible.posix.synchronize:
+        src: "{{ config_path_source }}"
+        dest: "{{ data_path_destination }}"
+        mode: push
+      tags:
+        - copying_data_to_server
+
+    - name: Check if data file already exists
+      ansible.builtin.stat:
+        path: "{{ data_path_destination }}/{{ data_to_process_path }}"
+      register: data_file_already_exists
+      tags:
+        - copying_data_to_server
+        - checking existence
+
+    - name: Create placeholder data file
+      ansible.builtin.file:
+        path: "{{ data_path_destination }}/{{ data_to_process_path }}"
+        state: directory
+        mode: 755
+      tags:
+        - copying_data_to_server
+        - creating_subdirs_to_file
+      when: not data_file_already_exists.stat.exists
+
+    - name: Delete placeholder data file
+      ansible.builtin.file:
+        path: "{{ data_path_destination }}/{{ data_to_process_path }}"
+        state: absent
+        mode: 755
+      tags:
+        - copying_data_to_server
+        - deleting_dir_with_filename_created_avobe
+      when: not data_file_already_exists.stat.exists
+
+    - name: Copy data to the remote from source
       ansible.posix.synchronize:
         src: "{{ data_path_source }}"
-        dest: "{{ data_path_destination }}"
+        dest: "{{ data_path_destination }}/{{ data_to_process_path }}"
         mode: push
       tags:
         - copying_data_to_server

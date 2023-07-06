@@ -1,5 +1,7 @@
-data_path_source: "tfm_code/"
+config_path_source: "./config.yaml"
+data_path_source: "./data/data_to_process.csv"
 data_path_destination: "/home/user/tfm_code/"
 result_from_model_destination_local: "./result"
 result_file_name_on_local: "result.json"
 result_html_name_on_local: "result.html"
+model_folder_location_on_source: "./model_saved"
