@@ -8,11 +8,13 @@ Is important to do:
 
 **$ ansible-galaxy install -r requirements.yml**
 
-to install dependencies.
+to install all dependencies.
 
 
 This project uses the **config_data.yml** to be able to get the code source to deploy and the destination location to do so. You need to generate the rsa id and name it **id_rsa** to be able to use the project or can also be edited to your id_rsa file name.
 This is also the case with the ansible_host ip, ansible_user and all configuration related to Ansible as such.
+
+It also uses a **config.yaml** that is used in the BabelMatcher project, the description of its parameters are on the **https://github.com/MandyMF/BabelMatcherTFM** repository. This project configures, deploys and said such repository.
 
 There are 5 Ansible playbooks that are used to exemplify the use and possibilities of the BabelMatcher library. The ansible functionality was implemented because there is a real risk of running out of babelkeys tokens while running the program, and this key is renewed every 24 hours, so, if you know you are going to spend all your tokens without finishing the task at hand, deploying the task into a remote machine can be the more realistic and functional way to do it.
 
@@ -39,9 +41,9 @@ Process the text using a previously saved model.
 ### Parameters in config.yml
 Next the meaning or function of every paramater in config.yml.
 
-* ##### data_path_source
+* ##### config_path_source
 
-This is the path to the code with the data folder where the logic of the project is stored.
+This is the path of the file that should be a **.yaml** or a **.yml**, an contains the configuration of the BabelMatcher project. 
 
 * ##### data_path_destination
 
