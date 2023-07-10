@@ -193,7 +193,7 @@
     - name: mount html results in apache
       ansible.posix.synchronize:
         src: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/all_lemmas_found/{{ result_html_name_on_local }}"
-        dest: "/var/www/html/index.html"
+        dest: "{{ publish_results_path }}"
         mode: push
       tags:
         - publish_data_with_apache
