@@ -93,7 +93,7 @@
         - dependecies_install
         - pip
 
-    - name: Load data configuration for data_path_source in the anm pc and data_path_destination for the server 
+    - name: Load data configuration for data_path_source in the anm pc and project_path_destination for the server 
       ansible.builtin.include_vars: config_data.yml
       tags:
         - initialization
@@ -117,7 +117,7 @@
     - name: Read-write git checkout from github
       ansible.builtin.git:
         repo: 'https://github.com/MandyMF/BabelMatcherTFM.git'
-        dest: "{{ data_path_destination }}"
+        dest: "{{ project_path_destination }}"
         clone: yes
         update: yes
       tags:
@@ -126,14 +126,14 @@
     - name: Copy python code to pc
       ansible.posix.synchronize:
         src: "{{ config_path_source }}"
-        dest: "{{ data_path_destination }}"
+        dest: "{{ project_path_destination }}"
         mode: push
       tags:
         - copying_data_to_server
 
     - name: Check if data file already exists
       ansible.builtin.stat:
-        path: "{{ data_path_destination }}/{{ data_to_process_path }}"
+        path: "{{ project_path_destination }}/{{ data_to_process_path }}"
       register: data_file_already_exists
       tags:
         - copying_data_to_server
@@ -141,7 +141,7 @@
 
     - name: Create placeholder data file
       ansible.builtin.file:
-        path: "{{ data_path_destination }}/{{ data_to_process_path }}"
+        path: "{{ project_path_destination }}/{{ data_to_process_path }}"
         state: directory
         mode: 755
       tags:
@@ -151,7 +151,7 @@
 
     - name: Delete placeholder data file
       ansible.builtin.file:
-        path: "{{ data_path_destination }}/{{ data_to_process_path }}"
+        path: "{{ project_path_destination }}/{{ data_to_process_path }}"
         state: absent
         mode: 755
       tags:
@@ -162,7 +162,7 @@
     - name: Copy data to the remote from source
       ansible.posix.synchronize:
         src: "{{ data_path_source }}"
-        dest: "{{ data_path_destination }}/{{ data_to_process_path }}"
+        dest: "{{ project_path_destination }}/{{ data_to_process_path }}"
         mode: push
       tags:
         - copying_data_to_server
@@ -170,13 +170,13 @@
     - name: execute test script
       ansible.builtin.shell:
         cmd: python3 ./process_by_id_and_tag_list_with_padchest_data.py
-        chdir: "{{ data_path_destination }}"
+        chdir: "{{ project_path_destination }}"
       tags:
         - running_project
 
     - name: fetch results
       ansible.builtin.fetch:
-        src: "{{ data_path_destination }}/{{ result_file_path }}"
+        src: "{{ project_path_destination }}/{{ result_file_path }}"
         dest: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/id_and_tag_list/{{ result_file_name_on_local }}"
         flat: yes
       tags:
@@ -184,7 +184,7 @@
     
     - name: fetch results html
       ansible.builtin.fetch:
-        src: "{{ data_path_destination }}/{{ save_html_view }}"
+        src: "{{ project_path_destination }}/{{ save_html_view }}"
         dest: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/id_and_tag_list/{{ result_html_name_on_local }}"
         flat: yes
       tags:

@@ -45,7 +45,7 @@ Next the meaning or function of every paramater in config.yml.
 
 This is the path of the file that should be a **.yaml** or a **.yml**, an contains the configuration of the BabelMatcher project. 
 
-* ##### data_path_destination
+* ##### project_path_destination
 
 This is the path folder to where the code will be stored to next be executed on the remote server.
 
