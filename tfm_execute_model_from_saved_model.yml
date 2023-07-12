@@ -167,7 +167,6 @@
       tags:
         - copying_data_to_server
 
-    #-------------------
     - name: Copy model from source to remote
       ansible.posix.synchronize:
         src: "{{ model_folder_location_on_source }}"
@@ -175,7 +174,6 @@
         mode: push
       tags:
         - copying_data_to_server
-    #-------------------
 
     - name: execute test script
       ansible.builtin.shell:
@@ -184,7 +182,7 @@
       tags:
         - running_project
 
-    - name: fetch results
+    - name: fetch results json
       ansible.builtin.fetch:
         src: "{{ project_path_destination }}/{{ result_file_path }}"
         dest: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/saved_model/{{ result_file_name_on_local }}"

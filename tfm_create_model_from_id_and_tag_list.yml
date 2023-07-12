@@ -174,7 +174,7 @@
       tags:
         - running_project
 
-    - name: fetch results
+    - name: fetch results json
       ansible.builtin.fetch:
         src: "{{ project_path_destination }}/{{ result_file_path }}"
         dest: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/id_and_tag_list/{{ result_file_name_on_local }}"
@@ -187,6 +187,22 @@
         src: "{{ project_path_destination }}/{{ save_html_view }}"
         dest: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/id_and_tag_list/{{ result_html_name_on_local }}"
         flat: yes
+      tags:
+        - fetch_results
+    
+    - name: fetch results pattern
+      ansible.builtin.fetch:
+        src: "{{ project_path_destination }}/{{ save_pattern_path }}"
+        dest: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/id_and_tag_list/{{ result_pattern_name_on_local }}"
+        flat: yes
+      tags:
+        - fetch_results
+
+    - name: fetch results model
+      ansible.posix.synchronize:
+        src: "{{ project_path_destination }}/{{ save_model_path }}/"
+        dest: "{{ result_from_model_destination_local }}/{{ inventory_hostname }}/id_and_tag_list/{{ result_model_name_on_local }}"
+        mode: pull
       tags:
         - fetch_results
 
