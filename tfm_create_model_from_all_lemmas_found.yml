@@ -48,15 +48,6 @@
         - dependecies_install
         - pip
 
-    - name: Installing unidecode
-      ansible.builtin.pip:
-        name: unidecode
-        executable: pip
-      tags:
-        - initialization
-        - dependecies_install
-        - pip
-
     - name: Installing stop-words
       ansible.builtin.pip:
         name: stop-words
@@ -167,7 +158,7 @@
       tags:
         - copying_data_to_server
 
-    - name: execute test script
+    - name: execute logic script
       ansible.builtin.shell:
         cmd: python3 ./process_by_all_lemmas_with_padchest_data.py
         chdir: "{{ project_path_destination }}"
