@@ -1,6 +1,6 @@
 ---
 - hosts:
-    - server1
+    - pythonserver
   tasks:
     - name: Installing rsync
       ansible.builtin.apt:
@@ -95,15 +95,6 @@
       tags:
         - initialization
         - load_python_project_conf_data
-
-    - name: downloading EN template for model
-      ansible.builtin.shell:
-        cmd: python3 -m spacy download en_core_web_sm
-        chdir: /home
-      when: lang == "EN"
-      tags:
-        - initialization
-        - dependecies_install
 
     - name: Read-write git checkout from github
       ansible.builtin.git:

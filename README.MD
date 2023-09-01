@@ -6,7 +6,9 @@ This project uses the babelnet project (link) to deploy the example or test prog
 
 Is important to do:
 
-**$ ansible-galaxy install -r requirements.yml**
+``` bash
+ansible-galaxy install -r requirements.yml
+```
 
 to install all dependencies.
 
@@ -38,12 +40,16 @@ Process the text with a list of ids and the first lemma found by the id is the t
 
 Process the text using a previously saved model.
 
-### Parameters in config.yml
-Next the meaning or function of every paramater in config.yml.
+### Parameters in config_data.yml
+Next the meaning or function of every paramater in config_data.yml.
 
 * ##### config_path_source
 
-This is the path of the file that should be a **.yaml** or a **.yml**, an contains the configuration of the BabelMatcher project. 
+This is the path of the file that should be a **.yaml** or a **.yml**, and contains the configuration of the BabelMatcher project Logic and has to have the structure showed in the **config.yaml** file and should be fill with the corresponding values. 
+
+* #### data_path_source
+
+This is the path of the data file to be processed by the model created by the Logic.
 
 * ##### project_path_destination
 
@@ -54,8 +60,24 @@ This is the path folder to where the code will be stored to next be executed on 
 This is the folder where the result from the model execution will be stored.
 * ##### result_file_name_on_local
 
-This is the name which the result file will have. This file will be contained in the **result_from_model_destination_local** folder inside the folder that is equal to the server name where the data was fetched from.
+This is the name that the result json file will have. This file will be contained in the **result_from_model_destination_local** folder inside the folder that is equal to the server name where the data was fetched from.
 
 * ##### result_html_name_on_local
 
-This is the name of the result file prepared to be shown as an html. This file will be contained in the **result_from_model_destination_local** folder inside the folder that is equal to the server name where the data was fetched from.
+This is the name of the resulting file prepared to be shown as an html. This file will be contained in the **result_from_model_destination_local** folder inside the folder that is equal to the server name where the data was fetched from.
+
+* ##### result_model_name_on_local
+
+This is the name of the resulting model created by running the Logic. This folder will be contained in the **result_from_model_destination_local** folder inside the folder that is equal to the server name where the data was fetched from.
+
+* ##### result_pattern_name_on_local
+
+This is the name of the result pattern file created by running the Logic. This file will be contained in the **result_from_model_destination_local** folder inside the folder that is equal to the server name where the data was fetched from.
+
+* ##### model_folder_location_on_source
+
+This is the path of the model to load, to run the playbook tfm_execute_model_from_saved_model.yml and it will only be required in this case.
+
+* ##### publish_results_path
+
+This is the path where is the result html file will be copied to be publish, in case of apache2 default pass is *"/var/www/html/index.html"*.
