@@ -13,12 +13,12 @@ ansible-galaxy install -r requirements.yml
 to install all dependencies.
 
 
-This project uses the **config_data.yml** to be able to get the code source to deploy and the destination location to do so. You need to generate the rsa id and name it **id_rsa** to be able to use the project or can also be edited to your id_rsa file name.
-This is also the case with the ansible_host ip, ansible_user and all configuration related to Ansible as such.
+This project uses the **config_data.yml** to be able to get the code source to deploy and the destination location to do so. You need to generate the rsa id and name it **id_rsa** to be able to use the project, or can also be edited to your id_rsa file name.
+This is also the case with the ansible_host IP, ansible_user and all configuration related to Ansible as such.
 
-It also uses a **config.yaml** that is used in the BabelMatcher project, the description of its parameters are on the **https://github.com/MandyMF/BabelMatcherTFM** repository. This project configures, deploys and said such repository.
+It also uses a **config.yaml** that is used in the BabelMatcher project, the description of its parameters are in the **https://github.com/MandyMF/BabelMatcherTFM** repository. This project configures, deploys and said such repository.
 
-There are 5 Ansible playbooks that are used to exemplify the use and possibilities of the BabelMatcher library. The ansible functionality was implemented because there is a real risk of running out of babelkeys tokens while running the program, and this key is renewed every 24 hours, so, if you know you are going to spend all your tokens without finishing the task at hand, deploying the task into a remote machine can be the more realistic and functional way to do it.
+There are 5 Ansible playbooks that are used to exemplify the use and possibilities of the BabelMatcher library. The Ansible functionality was implemented because there is a real risk of running out of Babelcoins tokens while running the program, and this key is renewed every 24 hours, so, if you know you are going to spend all your tokens without finishing the task at hand, deploying the task into a remote machine can be the more realistic and functional way to do it.
 
 * ##### tfm_create_model_from_all_lemmas_found
 
@@ -26,7 +26,7 @@ Process the text with all the data that can be extracted from Babelnet, this mea
 
 * ##### tfm_create_model_from_first_lemma_found
 
-Process the text with the first lemma found by babelnet using lemmas as query.
+Process the text with the first lemma found by babelnet using lemmas as a query.
 
 * ##### tfm_create_model_from_id_and_tag_list
 
@@ -34,18 +34,18 @@ Process the text with a list of ids and tags, this marks the results with the ta
 
 * ##### tfm_create_model_from_id_list
 
-Process the text with a list of ids and the first lemma found by the id is the tag to match in the result.
+Process the text with a list of ids and the first lemma found with the id is the tag to match and show in the results.
 
 * ##### tfm_execute_model_from_saved_model
 
 Process the text using a previously saved model.
 
 ### Parameters in config_data.yml
-Next the meaning or function of every paramater in config_data.yml.
+Next the meaning or function of every parameter in config_data.yml.
 
 * ##### config_path_source
 
-This is the path of the file that should be a **.yaml** or a **.yml**, and contains the configuration of the BabelMatcher project Logic and has to have the structure showed in the **config.yaml** file and should be fill with the corresponding values. 
+This is the path of the file that should be a **.yaml** or a **.yml**, and contains the configuration of the BabelMatcher project Logic and has to have the structure showed in the **config.yaml** file and should be filled with the corresponding values. 
 
 * #### data_path_source
 
@@ -80,4 +80,4 @@ This is the path of the model to load, to run the playbook tfm_execute_model_fro
 
 * ##### publish_results_path
 
-This is the path where is the result html file will be copied to be publish, in case of apache2 default pass is *"/var/www/html/index.html"*.
+This is the path where is the result html file will be copied to then be published, in case of apache2 default pass is *"/var/www/html/index.html"*.
