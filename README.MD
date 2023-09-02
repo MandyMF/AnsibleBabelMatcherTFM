@@ -10,8 +10,13 @@ Is important to do:
 ansible-galaxy install -r requirements.yml
 ```
 
-to install all dependencies.
+to install all dependencies and to install rsync on the Ansible Node Manager by executing:
 
+``` bash
+apt-get install rsync
+```
+
+with admin privileges.
 
 This project uses the **config_data.yml** to be able to get the code source to deploy and the destination location to do so. You need to generate the rsa id and name it **id_rsa** to be able to use the project, or can also be edited to your id_rsa file name.
 This is also the case with the ansible_host IP, ansible_user and all configuration related to Ansible as such.
